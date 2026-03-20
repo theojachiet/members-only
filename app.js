@@ -28,6 +28,10 @@ passport.use(
             const { rows } = await pool.query("SELECT * FROM users WHERE username = $1", [username]);
             const user = rows[0];
 
+            console.log("user found:", user);
+            console.log("password entered:", password);
+            console.log("password in db:", user?.password);
+
             if (!user) {
                 return done(null, false, { message: "Incorrect username" });
             }
