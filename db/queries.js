@@ -14,5 +14,5 @@ async function makeAdmin(id) {
 
 module.exports = {
     addUser,
-    makeAdmin
+    makeAdmin,
 };

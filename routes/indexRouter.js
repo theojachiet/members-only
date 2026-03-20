@@ -29,7 +29,7 @@ indexRouter.post('/logout', (req, res) => {
 //PROFILE / MAKE ADMIN
 indexRouter.get("/profile", (req, res) => {
     if (!req.user) return res.redirect("/");
-    res.render("profile");
+    res.render("profile", { error: undefined });
 });
 
 indexRouter.post("/makeAdmin", signupController.makeAdmin);

@@ -18,9 +18,13 @@ async function makeAdmin(req, res, next) {
     if (req.body.password !== process.env.ADMIN_PASSWORD) {
         return res.render("profile", { error: "Incorrect admin password" });
     }
-    db.makeAdmin(req.user.id)
-        .then(() => res.redirect("/profile"))
-        .catch(next);
+    try {
+        await db.makeAdmin(req.user.id);
+        res.redirect('/profile');
+    } catch (err) {
+        console.log(err);
+        next(err);
+    }
 }
 
 module.exports = {

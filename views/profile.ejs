@@ -14,9 +14,14 @@
     </p>
     <% if (!currentUser.is_admin) {%>
         <form action="/makeAdmin" method="POST">
-            <label for="password">Become an Admin:</label>
-            <input type="password" id="password" name="password">
-            <button type="submit">Submit</button>
+            <% if (typeof error !== 'undefined') { %>
+                <p style="color:red">
+                    <%= error %>
+                </p>
+                <% } %>
+                    <label for="password">Become an Admin:</label>
+                    <input type="password" id="password" name="password">
+                    <button type="submit">Submit</button>
         </form>
         <%}%>
             <a href="/messages">Back to messages</a>
