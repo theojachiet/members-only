@@ -3,9 +3,9 @@ const { Client } = require("pg");
 const SQL = `
 CREATE TABLE IF NOT EXISTS users (
    id INTEGER PRIMARY KEY GENERATED ALWAYS AS IDENTITY,
-   username VARCHAR ( 255 ),
-   password VARCHAR ( 255 ),
-   isAdmin BOOLEAN,
+   username VARCHAR(255),
+   password VARCHAR(255),
+   is_admin BOOLEAN
 );
 `;
 
