@@ -13,6 +13,17 @@ async function createUser(req, res, next) {
     }
 }
 
+async function makeAdmin(req, res, next) {
+    if (!req.user) return res.redirect("/");
+    if (req.body.password !== process.env.ADMIN_PASSWORD) {
+        return res.render("profile", { error: "Incorrect admin password" });
+    }
+    db.makeAdmin(req.user.id)
+        .then(() => res.redirect("/profile"))
+        .catch(next);
+}
+
 module.exports = {
     createUser,
+    makeAdmin
 }

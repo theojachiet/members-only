@@ -7,12 +7,22 @@
 </head>
 
 <body>
-    <p><%= currentUser ? currentUser.username : 'Guest' %>, this is your profile page</p>
-    <p>Admin: <%= currentUser.is_admin ? "Yes" : "No" %></p>
-    <a href="/messages">Back to messages</a>
-    <form action="/logout" method="POST">
-        <button type="submit">Logout</button>
-    </form>
+    <p>
+        <%= currentUser ? currentUser.username : 'Guest' %>, this is your profile page
+    </p>
+    <p>Admin: <%= currentUser.is_admin ? "Yes" : "No" %>
+    </p>
+    <% if (!currentUser.is_admin) {%>
+        <form action="/makeAdmin" method="POST">
+            <label for="password">Become an Admin:</label>
+            <input type="password" id="password" name="password">
+            <button type="submit">Submit</button>
+        </form>
+        <%}%>
+            <a href="/messages">Back to messages</a>
+            <form action="/logout" method="POST">
+                <button type="submit">Logout</button>
+            </form>
 
 </body>
 

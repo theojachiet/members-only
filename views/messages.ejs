@@ -7,7 +7,11 @@
 </head>
 
 <body>
-    <p>Welcome to the page <%= currentUser ? currentUser.username : 'Guest' %></p>
+    <p>Welcome to the page <%= currentUser ? currentUser.username : 'Guest' %>
+    </p>
+    <p>
+        <%= currentUser.is_admin ? 'You only see this messsage if you are an admin' : '' %>
+    </p>
     <a href="/profile">Your profile page</a>
     <form action="/logout" method="POST">
         <button type="submit">Logout</button>

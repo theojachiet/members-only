@@ -3,7 +3,11 @@ const indexRouter = Router();
 const signupController = require('../controllers/signupController');
 const passport = require("passport");
 
+//MAIN PAGES
 indexRouter.get("/", (req, res) => res.render('home', { error: req.query.error }));
+indexRouter.get('/messages', (req, res) => res.render('messages'));
+
+//SIGNUP/LOGIN ROUTING
 indexRouter.get("/signup", (req, res) => res.render("signup"));
 indexRouter.post("/signup", signupController.createUser);
 indexRouter.post(
@@ -13,8 +17,8 @@ indexRouter.post(
         failureRedirect: "/?error=true"
     })
 );
-indexRouter.get('/messages', (req, res) => res.render('messages'));
 
+//LOGOUT
 indexRouter.post('/logout', (req, res) => {
     req.logout((err) => {
         if (err) return next(err);
@@ -22,10 +26,13 @@ indexRouter.post('/logout', (req, res) => {
     });
 });
 
+//PROFILE / MAKE ADMIN
 indexRouter.get("/profile", (req, res) => {
     if (!req.user) return res.redirect("/");
     res.render("profile");
 });
+
+indexRouter.post("/makeAdmin", signupController.makeAdmin);
 
 
 module.exports = indexRouter;
