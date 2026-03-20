@@ -20,7 +20,12 @@ indexRouter.post('/logout', (req, res) => {
         if (err) return next(err);
         res.redirect('/');
     });
-})
+});
+
+indexRouter.get("/profile", (req, res) => {
+    if (!req.user) return res.redirect("/");
+    res.render("profile");
+});
 
 
 module.exports = indexRouter;

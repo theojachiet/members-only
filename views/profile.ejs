@@ -7,8 +7,9 @@
 </head>
 
 <body>
-    <p>Welcome to the page <%= currentUser ? currentUser.username : 'Guest' %></p>
-    <a href="/profile">Your profile page</a>
+    <p><%= currentUser ? currentUser.username : 'Guest' %>, this is your profile page</p>
+    <p>Admin: <%= currentUser.is_admin ? "Yes" : "No" %></p>
+    <a href="/messages">Back to messages</a>
     <form action="/logout" method="POST">
         <button type="submit">Logout</button>
     </form>
