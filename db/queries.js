@@ -1,5 +1,13 @@
 const pool = require('./pool');
 
-module.exports = {
-    
+async function addUser(name, password) {
+  await pool.query("INSERT INTO users (username, password, is_admin) VALUES ($1, $2, $3)", [
+    name,
+    password,
+    false,
+  ]);
 }
+
+module.exports = {
+    addUser,
+};

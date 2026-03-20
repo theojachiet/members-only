@@ -10,9 +10,9 @@ const bcrypt = require('bcryptjs');
 const LocalStrategy = require('passport-local').Strategy;
 const pool = require("./db/pool");
 
+app.use(express.urlencoded({ extended: true }));
 app.use(session({ secret: "cats", resave: false, saveUninitialized: false }));
 app.use(passport.session());
-app.use(express.urlencoded({ extended: true }));
 app.use(express.static(assetsPath));
 
 app.set("views", path.join(__dirname, "views"));
@@ -65,6 +65,8 @@ app.use((req, res, next) => {
     next();
 });
 
+//MAIN ROUTE
+
 app.use('/', indexRouter);
 
 app.listen(3000, (error) => {
@@ -75,7 +77,7 @@ app.listen(3000, (error) => {
 // ERROR HANDLING
 
 app.use((req, res) => {
-    res.status(404).sendFile('./404.html', { root: __dirname });
+    res.status(404).render('404');
 })
 
 app.use((err, req, res, next) => {

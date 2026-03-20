@@ -7,11 +7,11 @@ indexRouter.get("/", (req, res) => res.render('home'));
 indexRouter.get("/signup", (req, res) => res.render("signup"));
 indexRouter.post("/signup", signupController.createUser);
 indexRouter.post(
-  "/login",
-  passport.authenticate("local", {
-    successRedirect: "/messages",
-    failureRedirect: "/login"
-  })
+    "/",
+    passport.authenticate("local", {
+        successRedirect: "/messages",
+        failureRedirect: "/"
+    })
 );
 indexRouter.get('/messages', (req, res) => res.render('messages'))
 
