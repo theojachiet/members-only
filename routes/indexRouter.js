@@ -13,6 +13,7 @@ indexRouter.post(
     failureRedirect: "/login"
   })
 );
+indexRouter.get('/messages', (req, res) => res.render('messages'))
 
 
 module.exports = indexRouter;
