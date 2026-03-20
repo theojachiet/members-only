@@ -8,6 +8,9 @@
 
 <body>
     <p>Welcome to the page <%= currentUser ? currentUser.username : 'Guest' %></p>
+    <form action="/logout" method="POST">
+        <button type="submit">Logout</button>
+    </form>
 
 </body>
 

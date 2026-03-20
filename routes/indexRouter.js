@@ -13,7 +13,14 @@ indexRouter.post(
         failureRedirect: "/?error=true"
     })
 );
-indexRouter.get('/messages', (req, res) => res.render('messages'))
+indexRouter.get('/messages', (req, res) => res.render('messages'));
+
+indexRouter.post('/logout', (req, res) => {
+    req.logout((err) => {
+        if (err) return next(err);
+        res.redirect('/');
+    });
+})
 
 
 module.exports = indexRouter;
