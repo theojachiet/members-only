@@ -7,6 +7,14 @@ CREATE TABLE IF NOT EXISTS users (
    password VARCHAR(255),
    is_admin BOOLEAN
 );
+
+CREATE TABLE IF NOT EXISTS messages (
+    id INTEGER PRIMARY KEY GENERATED ALWAYS AS IDENTITY,
+    user_id INTEGER,
+    text VARCHAR(255),
+    date TIMESTAMP,
+    CONSTRAINT fk_user FOREIGN KEY (user_id) REFERENCES users(id)
+);
 `;
 
 async function main() {
