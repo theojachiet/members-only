@@ -23,6 +23,10 @@
                     <input type="password" id="password" name="password">
                     <button type="submit">Submit</button>
         </form>
+        <%} else {%>
+            <form action="/removeAdmin" method="POST">
+                <button type="submit">Give away admin rights</button>
+            </form>
         <%}%>
             <a href="/messages">Back to messages</a>
             <form action="/logout" method="POST">

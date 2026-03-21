@@ -27,7 +27,19 @@ async function makeAdmin(req, res, next) {
     }
 }
 
+async function removeAdmin(req, res, next) {
+    if (!req.user) return res.redirect('/');
+    try {
+        await db.removeAdmin(req.user.id);
+        res.redirect('/profile');
+    } catch (err) {
+        console.log(err);
+        next(err);
+    }
+}
+
 module.exports = {
     createUser,
-    makeAdmin
+    makeAdmin,
+    removeAdmin
 }

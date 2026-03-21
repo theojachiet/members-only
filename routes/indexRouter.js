@@ -33,6 +33,7 @@ indexRouter.get("/profile", (req, res) => {
 });
 
 indexRouter.post("/makeAdmin", signupController.makeAdmin);
+indexRouter.post('/removeAdmin', signupController.removeAdmin);
 
 
 module.exports = indexRouter;

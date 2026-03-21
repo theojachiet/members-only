@@ -12,7 +12,12 @@ async function makeAdmin(id) {
     await pool.query("UPDATE users SET is_admin = TRUE WHERE id = $1", [id]);
 }
 
+async function removeAdmin(id) {
+    await pool.query('UPDATE users SET is_admin = FALSE WHERE id = $1', [id]);
+}
+
 module.exports = {
     addUser,
     makeAdmin,
+    removeAdmin,
 };
