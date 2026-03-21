@@ -38,8 +38,19 @@ async function removeAdmin(req, res, next) {
     }
 }
 
+async function createMessage(req, res, next) {
+    try {
+        await db.createMessage(req.user.id, req.body.text, new Date());
+        res.redirect('/messages');
+    } catch (err) {
+        console.log(err);
+        next(err);
+    }
+}
+
 module.exports = {
     createUser,
     makeAdmin,
-    removeAdmin
+    removeAdmin,
+    createMessage,
 }
