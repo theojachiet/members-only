@@ -35,5 +35,8 @@ indexRouter.get("/profile", (req, res) => {
 indexRouter.post("/makeAdmin", signupController.makeAdmin);
 indexRouter.post('/removeAdmin', signupController.removeAdmin);
 
+//MESSAGES
+indexRouter.get('/createMessage', (req, res) => res.render('createMessage'));
+
 
 module.exports = indexRouter;
