@@ -60,6 +60,7 @@ async function getMessages(req, res, next) {
 
 async function deleteMessage(req, res, next) {
     try {
+        if (!req.user.is_admin) res.redirect('/messages');
         await db.deleteMessage(req.params.id);
         res.redirect('/messages');
     } catch (err) {

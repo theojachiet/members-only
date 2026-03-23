@@ -7,7 +7,8 @@
 </head>
 
 <body>
-    <p>Welcome to the page <%= currentUser ? currentUser.username : 'Guest' %>
+    <% currentUser ? '' : currentUser = {username: 'guest', is_admin: false} %>
+    <p>Welcome to the page <%=  currentUser.username %>
     </p>
     <p>
         <%= currentUser.is_admin ? 'You only see this messsage if you are an admin' : '' %>
