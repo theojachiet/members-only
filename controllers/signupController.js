@@ -48,9 +48,20 @@ async function createMessage(req, res, next) {
     }
 }
 
+async function getMessages(req, res, next) {
+    try {
+        const messages = await db.getMessages();
+        res.render('messages', { messages })
+    } catch (err) {
+        console.log(err);
+        next(err);
+    }
+}
+
 module.exports = {
     createUser,
     makeAdmin,
     removeAdmin,
     createMessage,
+    getMessages
 }

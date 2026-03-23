@@ -37,7 +37,8 @@ indexRouter.post('/removeAdmin', signupController.removeAdmin);
 
 //MESSAGES
 indexRouter.get('/createMessage', (req, res) => res.render('createMessage'));
-indexRouter.post('/createMessage', signupController.createMessage)
+indexRouter.post('/createMessage', signupController.createMessage);
+indexRouter.get('/messages', signupController.getMessages);
 
 
 module.exports = indexRouter;

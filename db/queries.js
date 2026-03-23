@@ -21,12 +21,22 @@ async function createMessage(user_id, text, date) {
         user_id,
         text,
         date
-    ])
+    ]);
+}
+
+async function getMessages() {
+    const { rows } = pool.query(`
+            SELECT messages.id, messages.text, messages.date, users.username
+            FROM messages
+            JOIN users ON messages.user_id = users.id
+            ORDER BY messages.date DESC
+        `);
 }
 
 module.exports = {
     addUser,
     makeAdmin,
     removeAdmin,
-    createMessage
+    createMessage,
+    getMessages
 };
