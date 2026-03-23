@@ -58,10 +58,21 @@ async function getMessages(req, res, next) {
     }
 }
 
+async function deleteMessage(req, res, next) {
+    try {
+        await db.deleteMessage(req.params.id);
+        res.redirect('/messages');
+    } catch (err) {
+        console.log(err);
+        next(err);
+    }
+}
+
 module.exports = {
     createUser,
     makeAdmin,
     removeAdmin,
     createMessage,
-    getMessages
+    getMessages,
+    deleteMessage
 }

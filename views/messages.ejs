@@ -27,6 +27,9 @@
                         </p>
                         <p>By <%= message.username %> on <%= message.date.toLocaleString() %>
                         </p>
+                        <p>
+                            <form action="/<%= message.id %>/deleteMessage" method="POST"><button type="submit">Delete Message</button></form>
+                        </p>
                     </li>
                     <%})}%>
             </ul>
