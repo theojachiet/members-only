@@ -31,6 +31,7 @@ async function getMessages() {
             JOIN users ON messages.user_id = users.id
             ORDER BY messages.date DESC
         `);
+    return rows;
 }
 
 module.exports = {

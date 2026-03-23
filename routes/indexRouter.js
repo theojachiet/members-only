@@ -5,7 +5,6 @@ const passport = require("passport");
 
 //MAIN PAGES
 indexRouter.get("/", (req, res) => res.render('home', { error: req.query.error }));
-indexRouter.get('/messages', (req, res) => res.render('messages'));
 
 //SIGNUP/LOGIN ROUTING
 indexRouter.get("/signup", (req, res) => res.render("signup"));
