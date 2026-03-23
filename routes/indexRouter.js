@@ -5,6 +5,7 @@ const passport = require("passport");
 
 //MAIN PAGES
 indexRouter.get("/", (req, res) => res.render('home', { error: req.query.error }));
+indexRouter.get('/messages', signupController.getMessages);
 
 //SIGNUP/LOGIN ROUTING
 indexRouter.get("/signup", (req, res) => res.render("signup"));
@@ -34,10 +35,8 @@ indexRouter.get("/profile", (req, res) => {
 indexRouter.post("/makeAdmin", signupController.makeAdmin);
 indexRouter.post('/removeAdmin', signupController.removeAdmin);
 
-//MESSAGES
+//MESSAGES  
 indexRouter.get('/createMessage', (req, res) => res.render('createMessage'));
 indexRouter.post('/createMessage', signupController.createMessage);
-indexRouter.get('/messages', signupController.getMessages);
-
 
 module.exports = indexRouter;

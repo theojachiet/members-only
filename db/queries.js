@@ -25,7 +25,7 @@ async function createMessage(user_id, text, date) {
 }
 
 async function getMessages() {
-    const { rows } = pool.query(`
+    const { rows } = await pool.query(`
             SELECT messages.id, messages.text, messages.date, users.username
             FROM messages
             JOIN users ON messages.user_id = users.id
