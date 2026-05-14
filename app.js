@@ -1,90 +1,29 @@
-// PACKAGES AND SETUPS
+/////// app.js
 
-const express = require('express');
-const app = express();
-const path = require('node:path');
-const assetsPath = path.join(__dirname, "public");
+const path = require("node:path");
+const { Pool } = require("pg");
+const express = require("express");
 const session = require("express-session");
 const passport = require("passport");
-const bcrypt = require('bcryptjs');
 const LocalStrategy = require('passport-local').Strategy;
-const pool = require("./db/pool");
 
-app.use(express.urlencoded({ extended: true }));
-app.use(session({ secret: "cats", resave: false, saveUninitialized: false }));
-app.use(passport.session());
-app.use(express.static(assetsPath));
+const pool = new Pool({
+  // add your configuration
+});
 
+const app = express();
 app.set("views", path.join(__dirname, "views"));
 app.set("view engine", "ejs");
 
-const indexRouter = require('./routes/indexRouter');
+app.use(session({ secret: "cats", resave: false, saveUninitialized: false }));
+app.use(passport.session());
+app.use(express.urlencoded({ extended: false }));
 
-// AUTHENTICATION FUNCTION
-
-passport.use(
-    new LocalStrategy(async (username, password, done) => {
-        try {
-            const { rows } = await pool.query("SELECT * FROM users WHERE username = $1", [username]);
-            const user = rows[0];
-
-            console.log("user found:", user);
-            console.log("password entered:", password);
-            console.log("password in db:", user?.password);
-
-            if (!user) {
-                return done(null, false, { message: "Incorrect username" });
-            }
-            const match = await bcrypt.compare(password, user.password);
-            if (!match) {
-                return done(null, false, { message: "Incorrect password" });
-            }
-            return done(null, user);
-        } catch (err) {
-            return done(err);
-        }
-    })
-);
-
-// SESSION FUNCTIONS
-
-passport.serializeUser((user, done) => {
-    done(null, user.id);
-});
-
-passport.deserializeUser(async (id, done) => {
-    try {
-        const { rows } = await pool.query("SELECT * FROM users WHERE id = $1", [id]);
-        const user = rows[0];
-
-        done(null, user);
-    } catch (err) {
-        done(err);
-    }
-});
-
-// Accessing currentUser through the whole app
-app.use((req, res, next) => {
-    res.locals.currentUser = req.user;
-    next();
-});
-
-//MAIN ROUTE
-
-app.use('/', indexRouter);
+app.get("/", (req, res) => res.render("index"));
 
 app.listen(3000, (error) => {
-    if (error) throw error;
-    console.log('app listening on port 3000');
-});
-
-// ERROR HANDLING
-
-app.use((req, res) => {
-    res.status(404).render('404');
-})
-
-app.use((err, req, res, next) => {
-    console.error(err);
-    res.status(err.statusCode || 500).send(err.message);
+  if (error) {
+    throw error;
+  }
+  console.log("app listening on port 3000!");
 });
