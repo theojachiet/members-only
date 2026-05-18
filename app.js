@@ -17,6 +17,7 @@ app.use(session({ secret: "cats", resave: false, saveUninitialized: false }));
 app.use(passport.session());
 app.use(express.urlencoded({ extended: false }));
 
+//PASSPORT LOCAL UTILITY FUNCTIONS
 passport.use(
   new LocalStrategy(async (username, password, done) => {
     try {
@@ -30,7 +31,7 @@ passport.use(
         return done(null, false, { message: "Incorrect password" });
       }
       return done(null, user);
-    } catch(err) {
+    } catch (err) {
       return done(err);
     }
   })
@@ -46,15 +47,23 @@ passport.deserializeUser(async (id, done) => {
     const user = rows[0];
 
     done(null, user);
-  } catch(err) {
+  } catch (err) {
     done(err);
   }
 });
 
+//APP MIDDLEWARE
 
-app.get("/", (req, res) => res.render("index"));
+app.get("/", (req, res) => res.render("index", { user: req.user }));
+app.post(
+  "/log-in",
+  passport.authenticate("local", {
+    successRedirect: "/",
+    failureRedirect: "/"
+  })
+);
+
 app.get("/sign-up", (req, res) => res.render("sign-up-form"));
-
 app.post("/sign-up", async (req, res, next) => {
   try {
     await pool.query("INSERT INTO users (username, password) VALUES ($1, $2)", [
@@ -62,7 +71,7 @@ app.post("/sign-up", async (req, res, next) => {
       req.body.password,
     ]);
     res.redirect("/");
-  } catch(err) {
+  } catch (err) {
     return next(err);
   }
 });
