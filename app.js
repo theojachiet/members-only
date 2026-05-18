@@ -52,6 +52,13 @@ passport.deserializeUser(async (id, done) => {
   }
 });
 
+//Making currentUser available across all the app
+app.use((req, res, next) => {
+  res.locals.currentUser = req.user;
+  next();
+});
+
+
 //APP MIDDLEWARE
 
 app.get("/", (req, res) => res.render("index", { user: req.user }));
